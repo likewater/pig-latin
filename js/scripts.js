@@ -11,8 +11,12 @@ $(function() {
           //for every character
           var firstLetter = currentWord.slice(0, 1);
           //if first is still consonant
-          if (consonant(firstLetter)) {
-            currentWord = currentWord.slice(1, (currentWord.length));
+
+          if (qCheck(firstLetter) && (currentWord.charAt(1) === "u")) {
+            currentWord = currentWord.slice(2, currentWord.length);
+            currentWord = currentWord.concat(firstLetter + "u");
+          } else if (consonant(firstLetter)) {
+            currentWord = currentWord.slice(1, currentWord.length);
             currentWord = currentWord.concat(firstLetter);
           } else {
             //do nothing
@@ -39,10 +43,18 @@ $(function() {
       return true;
     }
   }
+  var qCheck = function(letter){
+    if (letter === "q"){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   $("form").submit(function(){
     event.preventDefault();
     var userInput = $("#text-input").val();
     var result = pigLatin(userInput);
+
   });
 });

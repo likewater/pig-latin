@@ -1,5 +1,6 @@
 $(function() {
   var resultArray = [];
+  var punctuation = "";
   var pigLatin = function(userInput) {
     var words = userInput.split(" ");
     words.forEach(function(currentWord) {
@@ -7,10 +8,16 @@ $(function() {
       // debugger;
       if (consonant(currentWord.charAt(0))){
         //consonants
-        for (var i = 0; i < currentWord.length; i++) {
+        for (var i = 0; i <= currentWord.length; i++) {
           //for every character
           var firstLetter = currentWord.slice(0, 1);
           //if first is still consonant
+
+          // debugger;
+          if (punctuationCheck(currentWord.charAt(currentWord.length - 1))) {
+            punctuation = currentWord.charAt(currentWord.length - 1);
+            currentWord = currentWord.slice(0, currentWord.length - 1);
+          }
 
           if (qCheck(firstLetter) && (currentWord.charAt(1) === "u")) {
             currentWord = currentWord.slice(2, currentWord.length);
@@ -22,9 +29,9 @@ $(function() {
             //do nothing
           }
         }
-        var result = currentWord.concat("ay");
+        var result = currentWord.concat("ay" + punctuation);
       } else {
-        var result = currentWord.concat("ay");
+        var result = currentWord.concat("ay" + punctuation);
       }
       resultArray.push(result);
     });
@@ -45,6 +52,13 @@ $(function() {
   }
   var qCheck = function(letter){
     if (letter === "q"){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  var punctuationCheck = function(letter) {
+    if (letter === "." || letter === "," || letter === "!" || letter === "?" || letter === ":" || letter === ";") {
       return true;
     } else {
       return false;

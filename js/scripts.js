@@ -39,7 +39,7 @@ $(function() {
     //join the arrray!!
 
 
-    console.log(resultArray);
+    return resultArray.join(" ");
     // console.log(words);
 
   }
@@ -69,6 +69,6 @@ $(function() {
     event.preventDefault();
     var userInput = $("#text-input").val();
     var result = pigLatin(userInput);
-
+    $("#result").text(result);
   });
 });
